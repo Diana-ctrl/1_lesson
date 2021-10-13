@@ -13,7 +13,6 @@ function App() {
         {id: 1, title: 'HTML', isDone: true}, 
         {id: 1, title: 'CSS', isDone: true}, 
         {id: 1, title: 'React', isDone: false},
-        {id: 1, title: 'TypeScript', isDone: false}
     ]
     
     return (
