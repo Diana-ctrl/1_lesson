@@ -12,7 +12,8 @@ function App() {
     const tasks_1: Array<TaskType> = [ // TaskType []
         {id: 1, title: 'HTML', isDone: true}, 
         {id: 1, title: 'CSS', isDone: true}, 
-        {id: 1, title: 'React', isDone: false}
+        {id: 1, title: 'React', isDone: false},
+        {id: 1, title: 'TypeScript', isDone: false}
     ]
     
     return (
