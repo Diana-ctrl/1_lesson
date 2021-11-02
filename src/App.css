@@ -12,3 +12,18 @@
   border-radius: 5px;
   padding: 20px;
 }
+
+.active-filter {
+  background-color: chocolate;
+}
+
+.is-done {
+  opacity: 0.5;
+}
+
+.error {
+  border: 2px solid red;
+  outline: none;
+}
+
+
