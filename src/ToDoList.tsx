@@ -57,7 +57,6 @@ const ToDoList: React.FC<TodoListPropsType> = (props) => {
     const classForActive = props.filter === 'active' ? 'active-filter' : '';
     const classForCompleted = props.filter === 'completed' ? 'active-filter' : '';
     const errorMessage = error ? <div style ={{backgroundColor: 'red', color: 'white', fontWeight: 900, textAlign: 'center'}}>Title is required</div>: '';
-
     return (
         <div className='toDoList'>
             <div>
