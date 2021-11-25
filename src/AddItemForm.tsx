@@ -1,5 +1,9 @@
 import React, { ChangeEvent, KeyboardEvent } from 'react';
 import { useState } from 'react';
+import { Button } from '@material-ui/core/';
+import SaveIcon from '@material-ui/icons/Save';
+import TextField from '@material-ui/core/TextField';
+
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -10,12 +14,13 @@ const AddItemForm = (props: AddItemFormPropsType) => {
     const [newTaskTitle, setNewTaskTitle] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
-    const errorInputStyle = { border: '2px solid red', outline: 'none' }
+    // const errorInputStyle = { border: '2px solid red', outline: 'none' }
+
     const onNewTitleChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setError(false);
         setNewTaskTitle(event.currentTarget.value)
     };
-    const errorMessageStyle = error ? <div style={{ backgroundColor: 'red', color: 'white', fontWeight: 900, textAlign: 'center' }}>Title is required</div> : '';
+    // const errorMessageStyle = error ? <div style={{ backgroundColor: 'red', color: 'white', fontWeight: 900, textAlign: 'center' }}>Title is required</div> : '';
 
     const addItem = () => {
         const trimmedTitle = newTaskTitle.trim();
@@ -36,15 +41,19 @@ const AddItemForm = (props: AddItemFormPropsType) => {
 
     return (
         <div>
-            <input
-                style ={error ? errorInputStyle : undefined}
+            <TextField
+                error={error}
+                // style={error ? errorInputStyle : undefined}
+                variant='outlined'
+                label='Enter title...'
                 onChange={onNewTitleChangeHandler}
                 value={newTaskTitle}
                 onKeyPress={onKeyPressHandler}
-                placeholder="Enter title..."
+                helperText={error ? 'Title is required' : ''}
             />
-            {errorMessageStyle}
-            <button onClick={addItem}>+</button>
+            {/* {errorMessageStyle} */}
+            <Button variant='contained' color='secondary' size='medium'
+                startIcon={<SaveIcon />} onClick={addItem}>Save</Button>
         </div>
     )
 }

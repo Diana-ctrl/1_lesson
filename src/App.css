@@ -1,25 +1,4 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
-
-.App > div {
-  margin-right: 50px;
-}
-
-.toDoList {
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 20px;
-}
-
-.active-filter {
-  background-color: chocolate;
-}
-
 .is-done {
   opacity: 0.5;
-}
-
-
+} 
 
