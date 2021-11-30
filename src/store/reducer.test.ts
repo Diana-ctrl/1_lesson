@@ -1,4 +1,4 @@
-import { calculator, sum, ActionType } from './reduser';
+import { calculator, sum, ActionType } from './reducer';
 
 
 
