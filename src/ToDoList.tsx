@@ -8,8 +8,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 
 type TodoListPropsType = {
-    title: string,
-    id: string,
+    title: string
+    id: string
     tasks: Array<TaskType>
     filter: FilterValuesType
     removeTask: (taskID: string, toDoListID: string) => void
@@ -21,8 +21,8 @@ type TodoListPropsType = {
     changeTaskTitle: (taskID: string, title: string, toDoListID: string) => void
 }
 
-const ToDoList: React.FC<TodoListPropsType> = (props) => {
-    
+const ToDoList: React.FC<TodoListPropsType> = (props: TodoListPropsType) => {
+
     const tasksJSXelements = props.tasks.map(t => {
         const changeTaskTitle = (title: string) => {
             props.changeTaskTitle(t.id, title, props.id)
