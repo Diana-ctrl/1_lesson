@@ -94,8 +94,8 @@ function App() {
     }
     const addTodoList = (title: string) => {
         let todoListID = v1();
-        dispatchTodoLists(AddTodoListAC(title, todoListID));
-        dispatchTasks(AddStateForNewTodoListAC(todoListID))
+        dispatchTodoLists(AddTodoListAC(title));
+        dispatchTasks(AddTodoListAC());
         // const todoListID = v1()
         // const newTodoList: TodoListType = {
         //     id: todoListID,

@@ -1,6 +1,7 @@
 
 import { TasksStateType, TaskType } from '../App'
 import { v1 } from 'uuid';
+import { AddTodoListAT } from './todolists-reducer';
 
 type RemoveTaskAT = {
     type: 'REMOVE-TASK'
@@ -28,9 +29,9 @@ type ChangeTaskStatusAT = {
     toDoListID: string
 }
 
-type AddStateForNewTodoListAT = ReturnType<typeof AddStateForNewTodoListAC>
+// type AddStateForNewTodoListAT = ReturnType<typeof AddStateForNewTodoListAC>
 
-export type AllACType = RemoveTaskAT | AddTaskAT | ChangeTaskTitleAT | ChangeTaskStatusAT | AddStateForNewTodoListAT ;
+export type AllActionType = RemoveTaskAT | AddTaskAT | ChangeTaskTitleAT | ChangeTaskStatusAT | AddTodoListAT;
 
 
 export const RemoveTaskAC = (taskID: string, toDoListID: string): RemoveTaskAT => {
@@ -49,10 +50,10 @@ export const ChangeTaskStatusAC = (taskID: string, isDone: boolean, toDoListID: 
     return { type: 'CHANGE-TASK-STATUS', taskID, isDone, toDoListID } as const;
 }
 export const AddStateForNewTodoListAC = (todoListID: string) => {
-    return {type: 'ADD-NEW-STATE-FOR-TODOLIST', todoListID } as const;
+    return { type: 'ADD-NEW-STATE-FOR-TODOLIST', todoListID } as const;
 }
 
-export const tasksReducer = (tasks: TasksStateType, action: AllACType): TasksStateType => {
+export const tasksReducer = (tasks: TasksStateType, action: AllActionType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
             return { ...tasks, [action.toDoListID]: tasks[action.toDoListID].filter(task => task.id !== action.taskID) };
@@ -79,8 +80,11 @@ export const tasksReducer = (tasks: TasksStateType, action: AllACType): TasksSta
                 ...tasks,
                 [action.toDoListID]: tasks[action.toDoListID].map(t => t.id === action.taskID ? { ...t, isDone: action.isDone } : t)
             };
-        case 'ADD-NEW-STATE-FOR-TODOLIST': 
-        return {...tasks, [action.todoListID] : []}
+        case 'ADD-TODOLIST':
+            return {
+                ...tasks,
+                [action.todoListID]: [],
+            }
 
         default:
             return tasks;
