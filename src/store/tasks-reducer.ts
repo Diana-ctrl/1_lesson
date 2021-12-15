@@ -32,7 +32,6 @@ type ChangeTaskStatusAT = {
 const initialState: TasksStateType = {
 
 }
-
 export type AllActionType = RemoveTaskAT | AddTaskAT | ChangeTaskTitleAT | ChangeTaskStatusAT | AddTodoListAT | RemoveTodoListAT;
 
 

@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store'
 
 ReactDOM.render(<Provider store={store}>
-    <AppWithRedux />  
-    </Provider>, document.getElementById('root'));
+    <AppWithRedux />
+</Provider>, document.getElementById('root'));
 
 serviceWorker.unregister();
