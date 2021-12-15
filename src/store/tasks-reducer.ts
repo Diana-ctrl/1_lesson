@@ -29,7 +29,9 @@ type ChangeTaskStatusAT = {
     toDoListID: string
 }
 
-// type AddStateForNewTodoListAT = ReturnType<typeof AddStateForNewTodoListAC>
+const initialState: TasksStateType = {
+
+}
 
 export type AllActionType = RemoveTaskAT | AddTaskAT | ChangeTaskTitleAT | ChangeTaskStatusAT | AddTodoListAT | RemoveTodoListAT;
 
@@ -49,11 +51,8 @@ export const ChangeTaskTitleAC = (taskID: string, title: string, toDoListID: str
 export const ChangeTaskStatusAC = (taskID: string, isDone: boolean, toDoListID: string): ChangeTaskStatusAT => {
     return { type: 'CHANGE-TASK-STATUS', taskID, isDone, toDoListID } as const;
 }
-export const AddStateForNewTodoListAC = (todoListID: string) => {
-    return { type: 'ADD-NEW-STATE-FOR-TODOLIST', todoListID } as const;
-}
 
-export const tasksReducer = (tasks: TasksStateType, action: AllActionType): TasksStateType => {
+export const tasksReducer = (tasks = initialState, action: AllActionType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
             return { ...tasks, [action.toDoListID]: tasks[action.toDoListID].filter(task => task.id !== action.taskID) };

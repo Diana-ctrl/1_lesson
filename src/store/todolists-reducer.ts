@@ -24,6 +24,8 @@ type ChangeFinterAT = {
     id: string
 }
 
+let initialState: Array<TodoListType> = []
+
 export type AllACType = ChangeFinterAT | ChangeTodolistTitleAT | AddTodoListAT | RemoveTodoListAT;
 
 
@@ -43,7 +45,7 @@ export const ChangeFinterAC = (id: string, filter: FilterValuesType): ChangeFint
     return { type: 'CHANGE-TODOLIST-FILTER', id, filter }
 }
 
-export const todolistsReducer = (todoLists: Array<TodoListType>, action: AllACType): Array<TodoListType> => {
+export const todolistsReducer = (todoLists= initialState, action: AllACType): Array<TodoListType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST':
             return todoLists.filter(t => t.id !== action.id);
