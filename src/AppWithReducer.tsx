@@ -25,6 +25,7 @@ export type TasksStateType = {
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
 function AppWithReducer() {
+    console.log('app')
     const toDoList_1 = v1();
     const toDoList_2 = v1();
 

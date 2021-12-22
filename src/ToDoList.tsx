@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { TaskType, FilterValuesType } from './App';
 import AddItemForm from './AddItemForm';
 import EditableSpan from './EditableSpan';
@@ -21,11 +21,21 @@ type TodoListPropsType = {
     changeTaskTitle: (taskID: string, title: string, toDoListID: string) => void
 }
 
-const ToDoList: React.FC<TodoListPropsType> = (props: TodoListPropsType) => {
+const ToDoList: React.FC<TodoListPropsType> = React.memo((props: TodoListPropsType) => {
+    console.log('Todolist')
+
 
     const tasksJSXelements = props.tasks.map(t => {
         const changeTaskTitle = (title: string) => {
             props.changeTaskTitle(t.id, title, props.id)
+        }
+        
+        let tasksForTodolist = props.tasks;
+
+        if (props.filter === 'active') {
+            tasksForTodolist = props.tasks.filter((t: TaskType) => t.isDone === false)
+        } else if (props.filter === 'completed') {
+            tasksForTodolist = props.tasks.filter((t: TaskType) => t.isDone === true)
         }
 
         return (
@@ -35,7 +45,6 @@ const ToDoList: React.FC<TodoListPropsType> = (props: TodoListPropsType) => {
                     onChange={(e) => props.changeTaskStatus(t.id, e.currentTarget.checked, props.id)}
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
-
                 {/* <input
                     type="checkbox"
                     onChange={(e) => props.changeTaskStatus(t.id, e.currentTarget.checked, props.id)}
@@ -51,9 +60,9 @@ const ToDoList: React.FC<TodoListPropsType> = (props: TodoListPropsType) => {
         )
     })
 
-    const addTask = (title: string) => {
+    const addTask = useCallback((title: string) => {
         props.addTask(title, props.id);
-    }
+    }, [])
 
     const removeTodoList = () => props.removeTodoList(props.id);
     const setAll = () => props.changeFilter('all', props.id);
@@ -99,5 +108,5 @@ const ToDoList: React.FC<TodoListPropsType> = (props: TodoListPropsType) => {
             </div>
         </div>
     )
-}
+})
 export default ToDoList;
