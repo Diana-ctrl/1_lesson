@@ -23,20 +23,20 @@ type TodoListPropsType = {
 
 const ToDoList: React.FC<TodoListPropsType> = React.memo((props: TodoListPropsType) => {
     console.log('Todolist')
+    let tasksForTodolist = props.tasks;
+    if (props.filter === 'active') {
+        tasksForTodolist = props.tasks.filter((t: TaskType) => t.isDone === false)
+    } else if (props.filter === 'completed') {
+        tasksForTodolist = props.tasks.filter((t: TaskType) => t.isDone === true)
+    }
 
-
-    const tasksJSXelements = props.tasks.map(t => {
+    const tasksJSXelements = tasksForTodolist.map(t => {
         const changeTaskTitle = (title: string) => {
             props.changeTaskTitle(t.id, title, props.id)
         }
-        
-        let tasksForTodolist = props.tasks;
 
-        if (props.filter === 'active') {
-            tasksForTodolist = props.tasks.filter((t: TaskType) => t.isDone === false)
-        } else if (props.filter === 'completed') {
-            tasksForTodolist = props.tasks.filter((t: TaskType) => t.isDone === true)
-        }
+
+
 
         return (
             <li className={t.isDone === true ? 'is-done' : ''} key={t.id}>
@@ -55,19 +55,18 @@ const ToDoList: React.FC<TodoListPropsType> = React.memo((props: TodoListPropsTy
                 <IconButton onClick={() => props.removeTask(t.id, props.id)}>
                     <Delete />
                 </IconButton>
-
             </li>
         )
     })
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id);
-    }, [])
+    }, [props.addTask, props.id])
 
-    const removeTodoList = () => props.removeTodoList(props.id);
-    const setAll = () => props.changeFilter('all', props.id);
-    const setActive = () => props.changeFilter('active', props.id);
-    const setCompleted = () => props.changeFilter('completed', props.id);
+    const removeTodoList = useCallback(() => props.removeTodoList(props.id), [props.id]);
+    const setAll = useCallback(() => props.changeFilter('all', props.id), [props.id, props.changeFilter]);
+    const setActive = useCallback(() => props.changeFilter('active', props.id), [props.id, props.changeFilter]);
+    const setCompleted = useCallback(() => props.changeFilter('completed', props.id), [props.id, props.changeFilter]);
     // const classForAll = props.filter === 'all' ? 'active-filter' : '';
     // const classForActive = props.filter === 'active' ? 'active-filter' : '';
     // const classForCompleted = props.filter === 'completed' ? 'active-filter' : '';
