@@ -4,7 +4,7 @@ import AddItemForm from './AddItemForm';
 import EditableSpan from './EditableSpan';
 import { Button, IconButton, ButtonGroup } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
-import Checkbox from '@material-ui/core/Checkbox';
+import { Task } from './Task'
 
 type TodoListPropsType = {
     title: string
@@ -91,38 +91,7 @@ const ToDoList: React.FC<TodoListPropsType> = React.memo((props: TodoListPropsTy
 })
 export default ToDoList;
 
-type TaskPropsType = {
-    key: string
-    todoListID: string
-    task: TaskType
-    changeTaskTitle: (taskID: string, title: string, toDoListID: string) => void
-    changeTaskStatus: (taskID: string, isDone: boolean, toDoListID: string) => void
-    removeTask: (taskID: string, toDoListID: string) => void
-}
 
-const Task = (props: TaskPropsType) => {
 
-    const changeTaskTitle = (title: string) => {
-        props.changeTaskTitle(props.task.id, title, props.todoListID)
-    }
 
-    return (
-        <div className={props.task.isDone === true ? 'is-done' : ''} key={props.task.id}>
-            <Checkbox
-                checked={props.task.isDone}
-                onChange={(e) => props.changeTaskStatus(props.task.id, e.currentTarget.checked, props.todoListID)}
-            />
-            {/* <input
-            type="checkbox"
-            onChange={(e) => props.changeTaskStatus(t.id, e.currentTarget.checked, props.id)}
-            checked={t.isDone}
-            value={t.title}
-        /> */}
-            <EditableSpan title={props.task.title} setNewTitle={changeTaskTitle} />
-            <IconButton onClick={() => props.removeTask(props.task.id, props.todoListID)}>
-                <Delete />
-            </IconButton>
-        </div>
-    )
-}
 
