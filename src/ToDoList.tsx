@@ -5,6 +5,7 @@ import EditableSpan from './EditableSpan';
 import { Button, IconButton, ButtonGroup } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import { Task } from './Task'
+import {TaskWithSelectors} from './TaskWithSelectors';
 
 type TodoListPropsType = {
     title: string
@@ -29,16 +30,21 @@ const ToDoList: React.FC<TodoListPropsType> = React.memo((props: TodoListPropsTy
         tasksForTodolist = props.tasks.filter((t: TaskType) => t.isDone === true)
     }
 
+    // const changeTaskTitle = useCallback((taskID: string, title: string) => props.changeTaskTitle(taskID, title, props.id), [props.changeTaskTitle, props.id])
+    // const changeTaskStatus = useCallback((taskID: string, isDone: boolean) => props.changeTaskStatus(taskID, isDone, props.id), [props.changeTaskStatus, props.id])
+    // const removeTask = useCallback((taskID: string) => props.removeTask(taskID, props.id), [props.removeTask, props.id])
+
     const tasksJSXelements = tasksForTodolist.map(task =>
-        <Task
-            key={task.id}
-            todoListID={props.id}
-            task={task}
-            changeTaskTitle={props.changeTaskTitle}
-            changeTaskStatus={props.changeTaskStatus}
-            removeTask={props.removeTask}
-        />
+        <TaskWithSelectors key={task.id}
+        todoListID={props.id}
+        taskID={task.id}/>
     )
+                // key={task.id}
+            // todoListID={props.id}
+            // task={task}
+            // changeTaskTitle={changeTaskTitle}
+            // changeTaskStatus={changeTaskStatus}
+            // removeTask={removeTask}
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id);

@@ -9,24 +9,25 @@ type TaskPropsType = {
     key: string
     todoListID: string
     task: TaskType
-    changeTaskTitle: (taskID: string, title: string, toDoListID: string) => void
-    changeTaskStatus: (taskID: string, isDone: boolean, toDoListID: string) => void
-    removeTask: (taskID: string, toDoListID: string) => void
+    changeTaskTitle: (taskID: string, title: string) => void
+    changeTaskStatus: (taskID: string, isDone: boolean) => void
+    removeTask: (taskID: string) => void
 }
 
 export const Task = React.memo((props : TaskPropsType) => {
+    console.log('task')
 
     const {id, title, isDone} = props.task;
 
     const changeTaskTitle = useCallback((title: string) => {
-        props.changeTaskTitle(id, title, props.todoListID)
-    }, [id, props.todoListID, props.changeTaskTitle])
+        props.changeTaskTitle(id, title)
+    }, [id, props.changeTaskTitle])
 
     return (
         <div className={isDone === true ? 'is-done' : ''} key={id}>
             <Checkbox
                 checked={isDone}
-                onChange={(e) => props.changeTaskStatus(id, e.currentTarget.checked, props.todoListID)} />
+                onChange={(e) => props.changeTaskStatus(id, e.currentTarget.checked)} />
             {/* <input
             type="checkbox"
             onChange={(e) => props.changeTaskStatus(t.id, e.currentTarget.checked, props.id)}
@@ -34,7 +35,7 @@ export const Task = React.memo((props : TaskPropsType) => {
             value={t.title}
         /> */}
             <EditableSpan title={title} setNewTitle={changeTaskTitle} />
-            <IconButton onClick={() => props.removeTask(props.task.id, props.todoListID)}>
+            <IconButton onClick={() => props.removeTask(props.task.id)}>
                 <Delete />
             </IconButton>
         </div>
