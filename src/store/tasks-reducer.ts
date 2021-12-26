@@ -1,6 +1,6 @@
 
 import { v1 } from 'uuid';
-import { AddTodoListAT, RemoveTodoListAT } from './todolists-reducer';
+import { AddTodoListAT, RemoveTodoListAT, todolistID1, todolistID2, todolistID3 } from './todolists-reducer';
 type TaskType = {
     id: string,
     title: string,
@@ -38,6 +38,24 @@ type ChangeTaskStatusAT = {
 }
 
 const initialState: TasksStateType = {
+    [todolistID1]: [
+        { id: v1(), title: 'Buy gifts', isDone: true },
+        { id: v1(), title: 'Create a holiday menu', isDone: false },
+        { id: v1(), title: 'To buy a dress', isDone: false },
+        { id: v1(), title: 'Prepare wishes', isDone: false }
+    ],
+
+    [todolistID2]: [
+        { id: v1(), title: 'HTML', isDone: true },
+        { id: v1(), title: 'CSS', isDone: true },
+        { id: v1(), title: 'React', isDone: false },
+        { id: v1(), title: 'Redux', isDone: false }
+    ],
+    [todolistID3]: [
+        { id: v1(), title: 'Milk', isDone: true },
+        { id: v1(), title: 'Bread', isDone: true },
+        { id: v1(), title: 'Bear', isDone: true }
+    ]
 }
 export type AllActionType = RemoveTaskAT | AddTaskAT | ChangeTaskTitleAT | ChangeTaskStatusAT | AddTodoListAT | RemoveTodoListAT;
 
